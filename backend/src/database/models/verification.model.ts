@@ -8,7 +8,7 @@ export interface VerificationCodeDocument extends Document {
     code: string;
     type: VerificationEnum;
     createdAt: Date;
-    expiredAt: Date;
+    expiresAt: Date;
 }
 
 const verificationCodeSchema = new Schema<VerificationCodeDocument>({
@@ -32,7 +32,7 @@ const verificationCodeSchema = new Schema<VerificationCodeDocument>({
         type: Date,
         default: Date.now,
     },
-    expiredAt:{
+    expiresAt:{
         type: Date,
         required: true,
     },

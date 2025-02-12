@@ -9,6 +9,10 @@ import connectDatabase from "./database/database";
 import { HTTPSTATUS } from './config/http.config';
 import { asyncHandler } from './middlewares/asyncHandler';
 import authRoutes from './modules/auth/auth.routes';
+import passport from './middlewares/passport';
+import { authenticateJWT } from './common/Strategies/jwt.strategy';
+import sessionRoutes from './modules/session/session.routes';
+import mfaRoutes from './modules/mfa/mfa.routes';
 
 
 const app = express();
@@ -24,6 +28,7 @@ app.use(
 )
 
 app.use(cookieParser());
+app.use(passport.initialize());
 
 app.get("/", asyncHandler(async (req: Request, res: Response, next: NextFunction) => { 
     res.status(HTTPSTATUS.OK).json({
@@ -33,6 +38,10 @@ app.get("/", asyncHandler(async (req: Request, res: Response, next: NextFunction
 }));
 
 app.use(`${BASE_PATH}/auth`, authRoutes);
+
+app.use(`${BASE_PATH}/mfa`, mfaRoutes);
+
+app.use(`${BASE_PATH}/session`, authenticateJWT, sessionRoutes);
 
 app.use(errorHandler);
 

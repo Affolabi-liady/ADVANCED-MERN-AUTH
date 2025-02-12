@@ -23,7 +23,7 @@ export const getRefreshTokenCookieOptions = (): CookieOptions => {
     return {
         ...defaults,
         expires,
-        path: 'REFRESH_PATH',
+        path: REFRESH_PATH,
     }
 }
 

@@ -11,3 +11,8 @@ export interface LoginDto {
     password: string;
     userArgent?: string;
 }
+
+export interface resetPasswordDto {
+    password: string;
+    verificationCode: string;
+}
